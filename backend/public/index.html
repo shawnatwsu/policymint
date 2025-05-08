@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolicyMint - Privacy Policy Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(120deg, #10b981 0%, #059669 100%);
+        }
+        .body-bg {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="body-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-file-contract text-2xl"></i>
+                <span class="text-xl font-bold">PolicyMint</span>
+            </div>
+            <div id="userSection" class="hidden">
+                <span id="userEmail" class="mr-2"></span>
+                <button id="logoutBtn" class="bg-white text-emerald-600 px-3 py-1 rounded-lg hover:bg-gray-100 transition duration-200">Logout</button>
+            </div>
+            <div id="loginSection">
+                <button id="registerBtn" class="bg-white text-emerald-600 px-3 py-1 rounded-lg hover:bg-gray-100 transition duration-200">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-white py-10 border-b">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Generate Legal Documents in Seconds</h1>
+            <p class="text-xl text-gray-600 mb-6">Create professional Privacy Policies and Terms of Service tailored to your business</p>
+            <div class="flex justify-center space-x-4">
+                <div class="bg-emerald-100 p-4 rounded-lg text-center w-64">
+                    <i class="fas fa-check-circle text-emerald-500 text-2xl mb-2"></i>
+                    <p class="text-gray-800">GDPR & CCPA Compliant</p>
+                </div>
+                <div class="bg-emerald-100 p-4 rounded-lg text-center w-64">
+                    <i class="fas fa-bolt text-emerald-500 text-2xl mb-2"></i>
+                    <p class="text-gray-800">Ready in Seconds</p>
+                </div>
+                <div class="bg-emerald-100 p-4 rounded-lg text-center w-64">
+                    <i class="fas fa-shield-alt text-emerald-500 text-2xl mb-2"></i>
+                    <p class="text-gray-800">Legally Sound</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Stats -->
+    <section class="py-6 border-b">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Free Policy Generation</h2>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600">First <span class="font-bold text-emerald-600">100</span> users get free access</p>
+                        <p id="freeSlots" class="text-sm text-gray-500">Loading...</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">After free tier: <span class="font-semibold">$29.99/month</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Register Form -->
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-4">Get Started with PolicyMint</h2>
+            <p class="text-gray-600 mb-6">Enter your email to register and start generating policies.</p>
+            
+            <form id="registerForm">
+                <div class="mb-4">
+                    <label for="registerEmail" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                    <input type="email" id="registerEmail" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" required>
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" id="closeRegisterBtn" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                    <button type="submit" class="bg-emerald-500 text-white px-6 py-2 rounded-lg hover:bg-emerald-600 transition duration-200">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content - Policy Generator -->
+    <section id="policyGenerator" class="container mx-auto px-4 py-8 hidden">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6 border-b">
+                <h2 class="text-2xl font-bold text-gray-800">Generate Your Policy</h2>
+                <p class="text-gray-600">Fill out the form below to generate your custom legal documents.</p>
+            </div>
+            
+            <form id="policyForm" class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="companyName" class="block text-gray-700 font-medium mb-2">Company Name</label>
+                        <input type="text" id="companyName" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Your Company, Inc." required>
+                    </div>
+                    <div>
+                        <label for="companyUrl" class="block text-gray-700 font-medium mb-2">Company Website URL</label>
+                        <input type="url" id="companyUrl" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="https://example.com" required>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Data Collected (select all that apply)</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="personal" value="Personal Information" class="mr-2">
+                            <label for="personal">Personal Information</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="contact" value="Contact Information" class="mr-2">
+                            <label for="contact">Contact Information</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="device" value="Device Information" class="mr-2">
+                            <label for="device">Device Information</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="location" value="Location Data" class="mr-2">
+                            <label for="location">Location Data</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="cookies" value="Cookies & Tracking" class="mr-2">
+                            <label for="cookies">Cookies & Tracking</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="usage" value="Usage Data" class="mr-2">
+                            <label for="usage">Usage Data</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="marketing" value="Marketing Preferences" class="mr-2">
+                            <label for="marketing">Marketing Preferences</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="payment" value="Payment Information" class="mr-2">
+                            <label for="payment">Payment Information</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="customClauses" class="block text-gray-700 font-medium mb-2">Custom Clauses (Optional)</label>
+                    <textarea id="customClauses" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Add any specific clauses you'd like to include..."></textarea>
+                </div>
+                
+                <div id="errorAlert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 hidden"></div>
+                
+                <div class="flex justify-end">
+                    <button type="submit" id="generateBtn" class="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition duration-200">
+                        Generate Policy
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Policy Output Section -->
+    <section id="policyOutput" class="container mx-auto px-4 py-8 hidden">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6 border-b">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold text-gray-800">Your Generated Policy</h2>
+                    <button id="backToForm" class="text-emerald-600 hover:text-emerald-800">
+                        <i class="fas fa-arrow-left mr-1"></i> Back to Form
+                    </button>
+                </div>
+            </div>
+            
+            <div class="border-b">
+                <div class="flex">
+                    <button id="privacyTab" class="px-6 py-3 font-medium focus:outline-none border-b-2 border-emerald-500">Privacy Policy</button>
+                    <button id="termsTab" class="px-6 py-3 font-medium focus:outline-none border-b-2 border-transparent">Terms of Service</button>
+                </div>
+            </div>
+            
+            <div id="policyContent" class="p-6">
+                <div id="privacyPolicy" class="prose max-w-none"></div>
+                <div id="termsOfService" class="prose max-w-none hidden"></div>
+            </div>
+            
+            <div class="p-6 border-t bg-gray-50">
+                <div class="flex justify-end space-x-3">
+                    <button id="downloadMd" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition duration-200">
+                        <i class="fas fa-download mr-1"></i> Download MD
+                    </button>
+                    <button id="downloadHtml" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition duration-200">
+                        <i class="fas fa-code mr-1"></i> Download HTML
+                    </button>
+                    <button id="copyBtn" class="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition duration-200">
+                        <i class="fas fa-copy mr-1"></i> Copy to Clipboard
+                    </button>
+                </div>
+                <div id="copySuccess" class="mt-2 text-emerald-600 text-center hidden">Copied to clipboard!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500 mx-auto mb-4"></div>
+            <p class="text-lg text-gray-700">Generating your policy...</p>
+            <p class="text-sm text-gray-500 mt-2">This may take up to 30 seconds.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-file-contract text-emerald-400"></i>
+                        <span class="text-xl font-bold">PolicyMint</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-2">Professional legal documents in seconds</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
+                &copy; 2023 PolicyMint. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const registerBtn = document.getElementById('registerBtn');
+            const registerModal = document.getElementById('registerModal');
+            const closeRegisterBtn = document.getElementById('closeRegisterBtn');
+            const registerForm = document.getElementById('registerForm');
+            const policyGenerator = document.getElementById('policyGenerator');
+            const policyForm = document.getElementById('policyForm');
+            const policyOutput = document.getElementById('policyOutput');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const errorAlert = document.getElementById('errorAlert');
+            const privacyTab = document.getElementById('privacyTab');
+            const termsTab = document.getElementById('termsTab');
+            const privacyPolicy = document.getElementById('privacyPolicy');
+            const termsOfService = document.getElementById('termsOfService');
+            const backToForm = document.getElementById('backToForm');
+            const copyBtn = document.getElementById('copyBtn');
+            const copySuccess = document.getElementById('copySuccess');
+            const downloadMdBtn = document.getElementById('downloadMd');
+            const downloadHtmlBtn = document.getElementById('downloadHtml');
+            const userSection = document.getElementById('userSection');
+            const loginSection = document.getElementById('loginSection');
+            const userEmail = document.getElementById('userEmail');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const freeSlots = document.getElementById('freeSlots');
+
+            let currentUserEmail = localStorage.getItem('userEmail');
+            let privacyPolicyContent = '';
+            let termsOfServiceContent = '';
+            let activeTab = 'privacy';
+
+            // Check if user is logged in
+            if (currentUserEmail) {
+                showLoggedInState(currentUserEmail);
+            }
+
+            // Get usage stats
+            fetchUsageStats();
+
+            // Event Listeners
+            registerBtn.addEventListener('click', () => {
+                registerModal.classList.remove('hidden');
+            });
+
+            closeRegisterBtn.addEventListener('click', () => {
+                registerModal.classList.add('hidden');
+            });
+
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('registerEmail').value;
+                
+                try {
+                    const response = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        localStorage.setItem('userEmail', email);
+                        currentUserEmail = email;
+                        registerModal.classList.add('hidden');
+                        showLoggedInState(email);
+                        fetchUsageStats();
+                    } else {
+                        alert(data.message || 'Registration failed. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                }
+            });
+
+            policyForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const companyName = document.getElementById('companyName').value;
+                const companyUrl = document.getElementById('companyUrl').value;
+                const customClauses = document.getElementById('customClauses').value;
+                
+                // Get selected data collection types
+                const dataCollected = [];
+                document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                    dataCollected.push(checkbox.value);
+                });
+                
+                if (dataCollected.length === 0) {
+                    errorAlert.textContent = 'Please select at least one type of data collected';
+                    errorAlert.classList.remove('hidden');
+                    return;
+                }
+                
+                errorAlert.classList.add('hidden');
+                loadingOverlay.classList.remove('hidden');
+                
+                try {
+                    const response = await fetch('/api/policy', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: currentUserEmail,
+                            companyName,
+                            companyUrl,
+                            dataCollected,
+                            customClauses
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        privacyPolicyContent = data.policy.privacyPolicy;
+                        termsOfServiceContent = data.policy.termsOfService;
+                        
+                        // Convert markdown to HTML
+                        privacyPolicy.innerHTML = markdownToHtml(privacyPolicyContent);
+                        termsOfService.innerHTML = markdownToHtml(termsOfServiceContent);
+                        
+                        policyGenerator.classList.add('hidden');
+                        policyOutput.classList.remove('hidden');
+                    } else {
+                        errorAlert.textContent = data.message || 'Failed to generate policy. Please try again.';
+                        errorAlert.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    errorAlert.textContent = 'An error occurred. Please try again later.';
+                    errorAlert.classList.remove('hidden');
+                } finally {
+                    loadingOverlay.classList.add('hidden');
+                }
+            });
+
+            backToForm.addEventListener('click', () => {
+                policyOutput.classList.add('hidden');
+                policyGenerator.classList.remove('hidden');
+            });
+
+            privacyTab.addEventListener('click', () => {
+                activeTab = 'privacy';
+                privacyTab.classList.add('border-emerald-500');
+                termsTab.classList.remove('border-emerald-500');
+                termsTab.classList.add('border-transparent');
+                privacyPolicy.classList.remove('hidden');
+                termsOfService.classList.add('hidden');
+            });
+
+            termsTab.addEventListener('click', () => {
+                activeTab = 'terms';
+                termsTab.classList.add('border-emerald-500');
+                privacyTab.classList.remove('border-emerald-500');
+                privacyTab.classList.add('border-transparent');
+                termsOfService.classList.remove('hidden');
+                privacyPolicy.classList.add('hidden');
+            });
+
+            copyBtn.addEventListener('click', () => {
+                const content = activeTab === 'privacy' ? privacyPolicyContent : termsOfServiceContent;
+                navigator.clipboard.writeText(content)
+                    .then(() => {
+                        copySuccess.classList.remove('hidden');
+                        setTimeout(() => {
+                            copySuccess.classList.add('hidden');
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+            });
+
+            downloadMdBtn.addEventListener('click', () => {
+                const content = activeTab === 'privacy' ? privacyPolicyContent : termsOfServiceContent;
+                const filename = `${document.getElementById('companyName').value.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${activeTab === 'privacy' ? 'privacy-policy' : 'terms-of-service'}.md`;
+                downloadFile(content, filename, 'text/markdown');
+            });
+
+            downloadHtmlBtn.addEventListener('click', () => {
+                const content = activeTab === 'privacy' ? privacyPolicyContent : termsOfServiceContent;
+                const title = activeTab === 'privacy' ? 'Privacy Policy' : 'Terms of Service';
+                const htmlContent = generateFullHtml(content, document.getElementById('companyName').value, title);
+                const filename = `${document.getElementById('companyName').value.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${activeTab === 'privacy' ? 'privacy-policy' : 'terms-of-service'}.html`;
+                downloadFile(htmlContent, filename, 'text/html');
+            });
+
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('userEmail');
+                currentUserEmail = null;
+                showLoggedOutState();
+            });
+
+            // Helper Functions
+            function showLoggedInState(email) {
+                userEmail.textContent = email;
+                userSection.classList.remove('hidden');
+                loginSection.classList.add('hidden');
+                policyGenerator.classList.remove('hidden');
+            }
+
+            function showLoggedOutState() {
+                userSection.classList.add('hidden');
+                loginSection.classList.remove('hidden');
+                policyGenerator.classList.add('hidden');
+                policyOutput.classList.add('hidden');
+            }
+
+            async function fetchUsageStats() {
+                try {
+                    const response = await fetch('/api/stats');
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        freeSlots.textContent = `${data.stats.freeSlots} free slots remaining`;
+                    }
+                } catch (error) {
+                    console.error('Error fetching stats:', error);
+                    freeSlots.textContent = 'Could not load stats';
+                }
+            }
+
+            function markdownToHtml(markdown) {
+                if (!markdown) return '';
+                
+                return markdown
+                    .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mb-4 mt-6">$1</h1>')
+                    .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mb-3 mt-5">$1</h2>')
+                    .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mb-2 mt-4">$1</h3>')
+                    .replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/gm, '<em>$1</em>')
+                    .replace(/\n\n/gm, '</p><p class="mb-4">')
+                    .replace(/^- (.*$)/gm, '<li class="ml-6">$1</li>')
+                    .replace(/<\/li>\n<li/gm, '</li><li')
+                    .replace(/<li>(.*?)(<\/p>)/gm, '<li>$1</li>')
+                    .replace(/<p><li>/gm, '<ul class="list-disc mb-4 mt-2"><li>')
+                    .replace(/<\/li><\/p>/gm, '</li></ul>')
+                    .replace(/\n/gm, '<br>');
+            }
+
+            function generateFullHtml(markdown, companyName, title) {
+                const htmlContent = markdownToHtml(markdown);
+                
+                return `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>${companyName} - ${title}</title>
+                    <style>
+                        body {
+                            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+                            line-height: 1.6;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 20px;
+                            color: #333;
+                        }
+                        h1, h2, h3 { margin-top: 1.5em; margin-bottom: 0.5em; }
+                        h1 { font-size: 2em; }
+                        h2 { font-size: 1.5em; }
+                        h3 { font-size: 1.2em; }
+                        p { margin-bottom: 1em; }
+                        ul, ol { margin-bottom: 1em; padding-left: 2em; }
+                        a { color: #0066cc; text-decoration: none; }
+                        a:hover { text-decoration: underline; }
+                    </style>
+                </head>
+                <body>
+                    ${htmlContent}
+                </body>
+                </html>
+                `;
+            }
+
+            function downloadFile(content, filename, contentType) {
+                const blob = new Blob([content], { type: contentType });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        });
+    </script>
+</body>
+</html> 

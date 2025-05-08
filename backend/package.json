@@ -1,0 +1,1 @@
+{ "name": "policymint-backend", "version": "1.0.0", "description": "PolicyMint - Privacy Policy and Terms of Service Generator", "main": "src/index.js", "scripts": { "start": "node src/index.js" }, "dependencies": { "cors": "^2.8.5", "dotenv": "^16.0.3", "express": "^4.18.2", "helmet": "^6.0.1", "openai": "^4.0.0" } }
