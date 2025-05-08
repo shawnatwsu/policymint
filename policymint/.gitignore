@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+*/node_modules/
+frontend/node_modules/
+policymint/frontend/node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Build directories
+build/
+dist/
+out/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Log files
+logs/
+*.log
+
+# Storage files (for the simpleStorage service)
+data/*.json
+
+# Optional: exclude the entire frontend directory if it's not needed
+# If you're only deploying the backend, you can uncomment this:
+policymint/frontend/
+
+# Any specific large files
+# large-file-to-exclude.pdf 
