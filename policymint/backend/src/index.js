@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const path = require('path');
 const simpleRoutes = require('./routes/simple');
 const simpleStorage = require('./services/simpleStorage');
 
@@ -21,10 +22,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from public directory
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../../public')));
 
 // Register routes
 app.use('/api', simpleRoutes);
+
+// Root route to serve the main HTML file
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../public/index.html'));
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
