@@ -5,13 +5,17 @@
   "main": "policymint/backend/src/index.js",
   "scripts": {
     "start": "node policymint/backend/src/index.js",
-    "dev": "nodemon policymint/backend/src/index.js",
-    "postinstall": "cd policymint/backend && npm install"
+    "dev": "nodemon policymint/backend/src/index.js"
   },
   "engines": {
     "node": "16.x"
   },
   "dependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "helmet": "^6.0.1",
+    "openai": "^4.0.0"
   }
 }
