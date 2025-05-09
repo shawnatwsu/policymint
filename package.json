@@ -1,0 +1,17 @@
+{
+  "name": "policymint",
+  "version": "1.0.0",
+  "description": "AI-powered Privacy Policy and Terms of Service Generator",
+  "main": "policymint/backend/src/index.js",
+  "scripts": {
+    "start": "node policymint/backend/src/index.js",
+    "dev": "nodemon policymint/backend/src/index.js",
+    "postinstall": "cd policymint/backend && npm install"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
